@@ -1,4 +1,5 @@
-# Write your code below game_hash
+# require "pry"
+
 def game_hash
   {
     home: {
@@ -126,4 +127,43 @@ def game_hash
   }
 end
 
-# Write code here
+############################ helper functions ##################################
+
+def home_team 
+  game_hash[:home]
+end
+
+def guest_team
+  game_hash[:away]
+end
+
+def all_teams
+  [home_team, guest_team]
+end
+
+def all_players
+  all_teams.map { |team| team[:players] }
+end
+
+#################################################################################
+
+def num_points_scored name
+  all_players.find { |player| player[:player_name] == name }[:points]
+end
+
+def shoe_size name
+  all_players.find { |player| player[:player_name] == name }[:shoe]
+end
+
+def team_colors t_name
+  all_teams.find { |team| team[:team_name] == t_name }[:colors]
+end
+
+def team_names
+  all_teams.map { |team| team[:team_name] }
+end
+
+# def player_numbers t_name
+#   numbers = all_teams.find { |team| team[:team_name] == "#{t_name}" }.
+# end
+
