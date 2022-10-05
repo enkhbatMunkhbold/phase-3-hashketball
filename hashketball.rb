@@ -145,14 +145,22 @@ def all_players
   home_team[:players] + guest_team[:players]
 end
 
-#################################################################################
+def player_stats name
+  all_players.find { |player| player[:player_name] == name }
+end
+
+def total_points team
+  team[:players].map { |player| player[:points] }.sum
+end
+
+######################### Additional Methods #####################################
 
 def num_points_scored name
-  all_players.find { |player| player[:player_name] == name }[:points]
+  player_stats(name)[:points]
 end
 
 def shoe_size name
-  all_players.find { |player| player[:player_name] == name }[:shoe]
+  player_stats(name)[:shoe]
 end
 
 def team_colors t_name
@@ -167,10 +175,29 @@ def player_numbers t_name
   all_teams.find { |team| team[:team_name] == t_name }[:players].map { |player| player[:number]}
 end
 
-def player_stats name
-  all_players.find { |player| player[:player_name] == name }
+def big_shoe_rebounds
+  all_players.max_by { |player| player[:shoe] }[:rebounds]
 end
 
-def big_shoe_rebounds
-  all_players.find { |player| player[:shoe]}
+############################### Bonus Problems ####################################
+
+def most_points_scored
+  all_players.max_by { |player| player[:points]}[:player_name]
+end
+
+def winning_team
+  home_points = total_points(home_team)
+  guest_points = total_points(guest_team)
+  home_points > guest_points ? home_team[:team_name] : guest_team[:team_name]
+end
+
+def player_with_longest_name
+  all_players.max_by { |player| player[:player_name].length }[:player_name]
+end
+
+#################################### Super Bonus ###########################################
+
+def long_name_steals_a_ton?
+  most_steals_player = all_players.max_by { |player| player[:steals] }[:player_name]
+  most_steals_player == player_with_longest_name 
 end
