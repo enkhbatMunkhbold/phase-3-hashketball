@@ -142,7 +142,7 @@ def all_teams
 end
 
 def all_players
-  all_teams.map { |team| team[:players] }
+  home_team[:players] + guest_team[:players]
 end
 
 #################################################################################
@@ -163,7 +163,14 @@ def team_names
   all_teams.map { |team| team[:team_name] }
 end
 
-# def player_numbers t_name
-#   numbers = all_teams.find { |team| team[:team_name] == "#{t_name}" }.
-# end
+def player_numbers t_name
+  all_teams.find { |team| team[:team_name] == t_name }[:players].map { |player| player[:number]}
+end
 
+def player_stats name
+  all_players.find { |player| player[:player_name] == name }
+end
+
+def big_shoe_rebounds
+  all_players.find { |player| player[:shoe]}
+end
