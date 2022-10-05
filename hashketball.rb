@@ -148,11 +148,11 @@ end
 #################################################################################
 
 def num_points_scored name
-  all_players.find { |player| player[:player_name] == name }[:points]
+  player_stats(name)[:points]
 end
 
 def shoe_size name
-  all_players.find { |player| player[:player_name] == name }[:shoe]
+  player_stats(name)[:shoe]
 end
 
 def team_colors t_name
@@ -172,5 +172,9 @@ def player_stats name
 end
 
 def big_shoe_rebounds
-  all_players.find { |player| player[:shoe]}
+  all_players.max_by { |player| player[:shoe] }[:rebounds]
+end
+
+def most_points_scored
+  all_players.max_by { |player| player[:points]}[:player_name]
 end
